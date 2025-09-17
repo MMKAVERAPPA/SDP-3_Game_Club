@@ -41,31 +41,30 @@ This project allows management of members, games, recharges, transactions, and a
 1. Clone the repository:
    bash
    git clone <repo_url>
+   
 2. Configure MongoDB connection in application.properties:
+   spring.data.mongodb.uri=mongodb://localhost:27017/game_club
+   
+4. Build and run:
+   mvn clean install
+   mvn spring-boot:run
 
-spring.data.mongodb.uri=mongodb://localhost:27017/game_club
+5. Access APIs via:
 
-3. Build and run:
-
-mvn clean install
-mvn spring-boot:run
-
-4. Access APIs via:
-
-http://localhost:8080/
+   http://localhost:8080/
 
 5. API Endpoints (Sample)
 
-POST /members/save - Create a new member
-
-GET /members/all - Get all members
-
-POST /games/save - Create a new game
-
-GET /games/all - Get all games
-
-POST /recharges/save - Add a recharge
-
-POST /transactions/save - Record a transaction
-
-POST /admin-users/save - Create an admin user
+      POST /members/save - Create a new member
+      
+      GET /members/all - Get all members
+      
+      POST /games/save - Create a new game
+      
+      GET /games/all - Get all games
+      
+      POST /recharges/save - Add a recharge
+      
+      POST /transactions/save - Record a transaction
+      
+      POST /admin-users/save - Create an admin user
