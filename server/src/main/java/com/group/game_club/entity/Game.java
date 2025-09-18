@@ -1,5 +1,6 @@
 package com.group.game_club.entity;
 
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -50,3 +51,4 @@ public class Game {
         this.description = description;
     }
 }
+
