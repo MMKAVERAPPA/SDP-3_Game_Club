@@ -1,4 +1,3 @@
-
 package com.group.game_club.entity;
 
 import java.util.Date;
