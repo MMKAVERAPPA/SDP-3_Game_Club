@@ -1,60 +1,54 @@
-package com.game.Game_club.entity;
+package com.group.game_club.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import java.math.BigDecimal;
-import java.util.List;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "members")
+@Document(collection = "members")
 public class Member {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = false)
+    private Double balance = 0.0;
+
+    @Indexed(unique = true)
     private String phone;
 
-    @Column(nullable = false)
-    @Min(value = 0, message = "Balance cannot be less than 0")
-    @Max(value = 10000, message = "Balance cannot exceed 10000")
-    private BigDecimal balance = BigDecimal.ZERO; // Default balance to 0
+    public Member() {}
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public Member(String name, Double balance, String phone) {
+        this.name = name;
+        this.balance = balance != null ? balance : 0.0;
+        this.phone = phone;
     }
 
-    public void setId(Long id) {
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
         this.id = id;
     }
 
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
     public String getPhone() {
         return phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
     }
 }

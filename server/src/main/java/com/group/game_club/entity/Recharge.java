@@ -1,59 +1,56 @@
-package com.game.Game_club.entity;
+package com.group.game_club.entity;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
-@Entity
-@Table(name = "recharges")
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "recharges")
 public class Recharge {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    @DBRef
+    private Member member;  // Reference to members._id
 
-    @Column(nullable = false)
-    private BigDecimal amount;
+    private Double amount;
 
-    @CreationTimestamp // Automatically sets the timestamp when created
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime date;
+    private Date dateTime = new Date(); // default now()
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public Recharge() {}
+
+    public Recharge(Member member, Double amount) {
+        this.member = member;
+        this.amount = amount;
+        this.dateTime = new Date();
     }
 
-    public void setId(Long id) {
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
         this.id = id;
     }
 
     public Member getMember() {
         return member;
     }
-
     public void setMember(Member member) {
         this.member = member;
     }
 
-    public BigDecimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
-
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public Date getDateTime() {
+        return dateTime;
     }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
     }
 }

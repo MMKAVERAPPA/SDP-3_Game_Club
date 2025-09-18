@@ -1,46 +1,45 @@
-package com.game.Game_club.entity;
+package com.group.game_club.entity;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
-@Entity
-@Table(name = "transactions")
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "transactions")
 public class Transaction {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    @DBRef
+    private Member member;  // Reference to members._id
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", nullable = false)
-    private Game game;
+    @DBRef
+    private Game game;  // Reference to games._id
 
-    @Column(nullable = false)
-    private BigDecimal amount; // The price of the game at the time of transaction
+    private Double amount;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime date;
+    private Date dateTime = new Date(); // default now()
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public Transaction() {}
+
+    public Transaction(Member member, Game game, Double amount) {
+        this.member = member;
+        this.game = game;
+        this.amount = amount;
+        this.dateTime = new Date();
     }
 
-    public void setId(Long id) {
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
         this.id = id;
     }
 
     public Member getMember() {
         return member;
     }
-
     public void setMember(Member member) {
         this.member = member;
     }
@@ -48,24 +47,21 @@ public class Transaction {
     public Game getGame() {
         return game;
     }
-
     public void setGame(Game game) {
         this.game = game;
     }
 
-    public BigDecimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
-
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public Date getDateTime() {
+        return dateTime;
     }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
     }
 }

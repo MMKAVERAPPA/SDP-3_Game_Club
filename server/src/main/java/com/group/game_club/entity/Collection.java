@@ -1,54 +1,46 @@
-package com.game.Game_club.entity;
 
-import jakarta.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+package com.group.game_club.entity;
 
-@Entity
-@Table(name = "collections")
+import java.util.Date;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "collections")
 public class Collection {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(nullable = false)
-    private BigDecimal amount;
+    private Date date;
 
-    @Column(nullable = false, unique = true) // Assuming one collection entry per day
-    private LocalDate date;
+    private Double amount;
 
-    // Constructors
-    public Collection() {
-    }
+    public Collection() {}
 
-    public Collection(BigDecimal amount, LocalDate date) {
-        this.amount = amount;
+    public Collection(Date date, Double amount) {
         this.date = date;
+        this.amount = amount;
     }
 
-    // Getters and Setters
-    public Long getId() {
+    public String getId() {
         return id;
     }
-
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
-
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
+
+    public Double getAmount() {
+        return amount;
+    }
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 }
+
