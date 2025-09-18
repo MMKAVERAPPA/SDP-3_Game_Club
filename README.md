@@ -50,7 +50,7 @@ This project allows management of members, games, recharges, transactions, and a
 
 **4. Access APIs via:**
 - Server Deployment - https://sdp-3-game-club.onrender.com
-- Frontend Deployment - 
+- Frontend Deployment - https://sdp-3-game-club-frontend.onrender.com
    
 **5. API Endpoints**
 
