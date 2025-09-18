@@ -9,5 +9,8 @@ import com.group.game_club.entity.Member;
 
 @Repository
 public interface MemberRepository extends MongoRepository<Member, String> {
+    
     Optional<Member> findByPhone(String phone);
+
+    Optional<Member> findByEmail(String email); // needed for authentication + lookups
 }

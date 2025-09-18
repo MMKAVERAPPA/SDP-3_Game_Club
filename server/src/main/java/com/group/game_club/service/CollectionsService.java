@@ -1,17 +1,21 @@
 package com.group.game_club.service;
 
-import com.group.game_club.entity.Collection;
-import com.group.game_club.repository.CollectionsRepository;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.group.game_club.entity.Collection;
+import com.group.game_club.repository.CollectionRepository;
 
 @Service
 public class CollectionsService {
 
     @Autowired
-    private CollectionsRepository collectionsRepository;
+    private CollectionRepository collectionsRepository;
 
     public Collection saveCollection(Collection collection) {
         collection.setId(null);
@@ -33,5 +37,17 @@ public class CollectionsService {
         }
         collectionsRepository.deleteById(id);
         return true;
+    }
+
+    // ---- New method for daily aggregation ----
+    public Collection addAmountForToday(Double amount) {
+        LocalDate today = LocalDate.now();
+        Date date = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        Collection collection = collectionsRepository.findByDate(date)
+                .orElseGet(() -> new Collection(date, 0.0));
+
+        collection.setAmount(collection.getAmount() + amount);
+        return collectionsRepository.save(collection);
     }
 }

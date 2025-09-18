@@ -1,11 +1,12 @@
 package com.group.game_club.service;
 
-import com.group.game_club.entity.Recharge;
-import com.group.game_club.repository.RechargeRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.group.game_club.entity.Recharge;
+import com.group.game_club.repository.RechargeRepository;
 
 @Service
 public class RechargeService {
@@ -34,4 +35,11 @@ public class RechargeService {
         rechargeRepository.deleteById(id);
         return true;
     }
+    public List<Recharge> getRechargesByMemberId(String memberId) {
+        return rechargeRepository.findAll()
+                .stream()
+                .filter(r -> r.getMember().getId().equals(memberId))
+                .toList();
+    }
+    
 }

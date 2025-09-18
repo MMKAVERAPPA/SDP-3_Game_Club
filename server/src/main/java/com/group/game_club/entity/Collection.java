@@ -12,7 +12,7 @@ public class Collection {
 
     private Date date;
 
-    private Double amount;
+    private Double amount = 0.0;
 
     public Collection() {}
 
