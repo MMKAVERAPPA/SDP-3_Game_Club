@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group.game_club.dto.AuthResponse;
 import com.group.game_club.dto.MemberProfileResponse;
 import com.group.game_club.dto.RechargeResponseDto;
 import com.group.game_club.dto.TransactionResponseDto;
@@ -47,9 +48,10 @@ public class MemberController {
     }
 
     @PostMapping("/auth")
-    public String authenticateMember(@RequestBody Member member) {
+    public AuthResponse authenticateMember(@RequestBody Member member) {
         return memberService.authenticateMember(member.getEmail(), member.getPassword());
     }
+
 
    @GetMapping("/search/{id}")
 public MemberProfileResponse searchMemberById(@PathVariable String id) {

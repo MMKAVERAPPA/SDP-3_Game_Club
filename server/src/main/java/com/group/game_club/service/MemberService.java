@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.group.game_club.dto.AuthResponse;
 import com.group.game_club.entity.Member;
 import com.group.game_club.repository.MemberRepository;
 
@@ -66,14 +67,14 @@ public class MemberService {
         return true;
     }
     // Authenticate member by email and password
-    public String authenticateMember(String email, String password) {
+    public AuthResponse authenticateMember(String email, String password) {
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Member not found with email: " + email));
+        .orElseThrow(() -> new RuntimeException("Member not found with email: " + email));
 
-        if (member.getPassword().equals(password)) {
-            return member.getId();
-        } else {
-            throw new RuntimeException("Invalid password for email: " + email);
-        }
+if (member.getPassword().equals(password)) {
+    return new AuthResponse(member.getId(), member.getRole());
+} else {
+    throw new RuntimeException("Invalid password for email: " + email);
+}
     }
 }
