@@ -1,22 +1,16 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import API from "../api/api"; // ✅ Import API
+import { useAuth} from "../context/AuthContext";
 
 export default function Login() {
-    const { login } = useAuth();
-    const [username, setUsername] = useState("");
+
+    const {login} = useAuth()
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            // ✅ Call backend API for login
-            // Example:
-            // const res = await API.post("/login", { username, password });
-            // login(res.data.user, res.data.token);
-
-            login(username, password); // 🔹 Keep fallback for now
+            login(email, password)
         } catch (err) {
             console.error("Login failed:", err);
             alert("Invalid credentials");
@@ -32,15 +26,15 @@ export default function Login() {
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <input
                         type="text"
-                        placeholder="Enter username"
-                        className="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900 placeholder-gray-500"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Enter email"
+                        className="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
                         type="password"
                         placeholder="Enter password"
-                        className="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900 placeholder-gray-500"
+                        className="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />

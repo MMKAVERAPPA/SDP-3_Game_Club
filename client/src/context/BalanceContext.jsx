@@ -1,13 +1,30 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import API from "../api/api";
+import { useAuth } from "./AuthContext";
 
 const BalanceContext = createContext();
 
 export const BalanceProvider = ({ children }) => {
-    const [balance, setBalance] = useState(500); // default ₹500
+
+    const {user} = useAuth()
+    const [balance, setBalance] = useState(0)
 
     const recharge = (amount) => {
-        setBalance((prev) => Math.min(20000, prev + amount));
-    };
+        setBalance(balance + amount);
+    }
+
+    useEffect(() => {
+        const getBalance = async() => {
+        if (!user) return; 
+        try{
+            const result = await API.get(`/members/${user.id}/balance`)
+            recharge(result.data)
+        }catch(err){
+            console.log("Error while fetching the balance")
+        }
+    }
+    getBalance()
+    },[user])
 
     const deduct = (amount) => {
         if (balance - amount >= 1) {
@@ -18,7 +35,7 @@ export const BalanceProvider = ({ children }) => {
     };
 
     return (
-        <BalanceContext.Provider value={{ balance, recharge, deduct }}>
+        <BalanceContext.Provider value={{ balance, setBalance, recharge, deduct }}>
             {children}
         </BalanceContext.Provider>
     );

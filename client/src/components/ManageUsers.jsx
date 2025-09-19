@@ -10,8 +10,15 @@ export default function ManageUsers() {
 
     const fetchUsers = async () => {
         try {
-            const res = await API.get("/members");
-            setUsers(res.data);
+            const res = await API.get("/members/all");
+            let userCollections = []
+            for(const user of res.data){
+                if (user.role === 'USER'){
+                    userCollections.push(user)
+                }
+            }
+            setUsers(userCollections)
+            console.log(userCollections)
         } catch (err) {
             console.error(err);
         }
@@ -19,7 +26,7 @@ export default function ManageUsers() {
 
     const addUser = async () => {
         try {
-            await API.post("/members", { name, phone, email, password, fee: 500 });
+            await API.post("/members/save", { name, phone, email, password, fee: 500 });
             setName(""); setPhone(""); setEmail(""); setPassword("");
             fetchUsers();
         } catch (err) {
@@ -29,7 +36,7 @@ export default function ManageUsers() {
 
     const deleteUser = async (id) => {
         try {
-            await API.delete(`/members/${id}`);
+            await API.delete(`/members/delete/${id}`);
             fetchUsers();
         } catch (err) {
             console.error(err);
@@ -64,13 +71,13 @@ export default function ManageUsers() {
                 </thead>
                 <tbody>
                     {users.map((u) => (
-                        <tr key={u._id}>
+                        <tr key={u.id} className="center">
                             <td className="border p-2">{u.name}</td>
                             <td className="border p-2">{u.phone}</td>
                             <td className="border p-2">{u.email}</td>
                             <td className="border p-2">₹{u.balance}</td>
                             <td className="border p-2">
-                                <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => deleteUser(u._id)}>Delete</button>
+                                <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => deleteUser(u.id)}>Delete</button>
                             </td>
                         </tr>
                     ))}

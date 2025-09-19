@@ -45,11 +45,11 @@ export default function AdminDashboard() {
 
                 {/* Transaction Processing */}
                 <div className="border rounded p-4 shadow bg-white dark:bg-gray-800">
-                    <h3 className="font-semibold text-black dark:text-white">Transaction Processing</h3>
-                    <p className="text-gray-700 dark:text-gray-300">Process user transactions</p>
+                    <h3 className="font-semibold text-black dark:text-white">Users Details</h3>
+                    <p className="text-gray-700 dark:text-gray-300">View all user Detials</p>
                     <Link to="/process-transaction">
                         <button className="bg-blue-600 hover:bg-blue-700 text-white mt-2 px-4 py-2 rounded">
-                            Process Transactions
+                            View Details
                         </button>
                     </Link>
                     {/* 🔗 API: POST /transactions/process */}
