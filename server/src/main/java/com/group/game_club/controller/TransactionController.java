@@ -85,13 +85,13 @@ public List<GameHistoryDto> getGameHistoryByMemberId(@PathVariable String member
     return transactionRepository.findByMember_Id(memberId)
             .stream()
             .map(t -> new GameHistoryDto(
-                    t.getGame().getId(),
-                    t.getGame().getName(),
+                    t.getGame().getName(),   // ✅ only game name
                     t.getAmount(),
                     t.getDateTime()
             ))
             .toList();
 }
+
 
 
 }

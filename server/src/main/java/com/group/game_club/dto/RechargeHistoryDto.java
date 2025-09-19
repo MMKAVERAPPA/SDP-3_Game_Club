@@ -3,25 +3,38 @@ package com.group.game_club.dto;
 import java.util.Date;
 
 public class RechargeHistoryDto {
-    private String memberId;
-    private Double amount;
-    private Date dateTime; // optional for response
+    private String rechargeId;
+    private double amount;
+    private Date dateTime;
 
-    public RechargeHistoryDto() {}
-
-    public RechargeHistoryDto(String memberId, Double amount, Date dateTime) {
-        this.memberId = memberId;
+    public RechargeHistoryDto(String rechargeId, double amount, Date dateTime) {
+        this.rechargeId = rechargeId;
         this.amount = amount;
         this.dateTime = dateTime;
-
     }
 
-    public String getMemberId() { return memberId; }
-    public void setMemberId(String memberId) { this.memberId = memberId; }
+    // Getters & Setters
+    public String getRechargeId() {
+        return rechargeId;
+    }
 
-    public Double getAmount() { return amount; }
-    public void setAmount(Double amount) { this.amount = amount; }
+    public void setRechargeId(String rechargeId) {
+        this.rechargeId = rechargeId;
+    }
 
-    public Date getDateTime() { return dateTime; }
-    public void setDateTime(Date dateTime) { this.dateTime = dateTime; }
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
+    }
 }

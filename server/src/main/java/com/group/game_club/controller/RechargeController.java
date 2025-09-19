@@ -95,7 +95,7 @@ public class RechargeController {
         return rechargeRepository.findByMemberId(memberId)
                 .stream()
                 .map(r -> new RechargeHistoryDto(
-                r.getMember().getId(),
+                r.getId(), // ✅ recharge id
                 r.getAmount(),
                 r.getDateTime()
         ))
