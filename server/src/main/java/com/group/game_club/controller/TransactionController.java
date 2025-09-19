@@ -85,6 +85,7 @@ public List<GameHistoryDto> getGameHistoryByMemberId(@PathVariable String member
     return transactionRepository.findByMember_Id(memberId)
             .stream()
             .map(t -> new GameHistoryDto(
+                    t.getId(),
                     t.getGame().getName(),   // ✅ only game name
                     t.getAmount(),
                     t.getDateTime()

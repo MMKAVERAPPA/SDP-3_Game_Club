@@ -3,14 +3,25 @@ package com.group.game_club.dto;
 import java.util.Date;
 
 public class GameHistoryDto {
+    private String id;
     private String gameName;
     private Double amount;
     private Date dateTime;
+    
 
-    public GameHistoryDto(String gameName, Double amount, Date dateTime) {
+    public GameHistoryDto(String id, String gameName, Double amount, Date dateTime) {
+        this.id = id;
         this.gameName = gameName;
         this.amount = amount;
         this.dateTime = dateTime;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     // Getters & Setters
