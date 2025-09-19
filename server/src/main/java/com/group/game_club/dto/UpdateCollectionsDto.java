@@ -15,6 +15,7 @@ public class UpdateCollectionsDto {
     public LocalDate getDate() {
         return date;
     }
+
     public void setDate(LocalDate date) {
         this.date = date;
     }
@@ -22,6 +23,7 @@ public class UpdateCollectionsDto {
     public Double getAmount() {
         return amount;
     }
+
     public void setAmount(Double amount) {
         this.amount = amount;
     }

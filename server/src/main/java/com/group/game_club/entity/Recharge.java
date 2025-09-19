@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "recharges")
 public class Recharge {
+
     @Id
     private String id;
 
@@ -18,7 +19,8 @@ public class Recharge {
 
     private Date dateTime = new Date(); // default now()
 
-    public Recharge() {}
+    public Recharge() {
+    }
 
     public Recharge(Member member, Double amount) {
         this.member = member;
@@ -29,6 +31,7 @@ public class Recharge {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -36,6 +39,7 @@ public class Recharge {
     public Member getMember() {
         return member;
     }
+
     public void setMember(Member member) {
         this.member = member;
     }
@@ -43,6 +47,7 @@ public class Recharge {
     public Double getAmount() {
         return amount;
     }
+
     public void setAmount(Double amount) {
         this.amount = amount;
     }
@@ -50,6 +55,7 @@ public class Recharge {
     public Date getDateTime() {
         return dateTime;
     }
+
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }

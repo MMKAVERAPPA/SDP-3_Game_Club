@@ -25,11 +25,11 @@ public class Member {
     private String phone;
 
     // Default constructor
-    public Member() {}
-
+    public Member() {
+    }
 
     // Full constructor
-    public Member(String id, String name, Double balance,String role, String email, String password, String phone) {
+    public Member(String id, String name, Double balance, String role, String email, String password, String phone) {
         this.id = id;
         this.name = name;
         this.role = role;
@@ -43,16 +43,15 @@ public class Member {
         return role;
     }
 
-
     public void setRole(String role) {
         this.role = role;
     }
-
 
     // Getters and Setters
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -60,6 +59,7 @@ public class Member {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -67,6 +67,7 @@ public class Member {
     public Double getBalance() {
         return balance;
     }
+
     public void setBalance(Double balance) {
         this.balance = balance;
     }
@@ -74,6 +75,7 @@ public class Member {
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -81,6 +83,7 @@ public class Member {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -88,6 +91,7 @@ public class Member {
     public String getPhone() {
         return phone;
     }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }

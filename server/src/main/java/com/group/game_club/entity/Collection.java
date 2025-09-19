@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "collections")
 public class Collection {
+
     @Id
     private String id;
 
@@ -14,7 +15,8 @@ public class Collection {
 
     private Double amount = 0.0;
 
-    public Collection() {}
+    public Collection() {
+    }
 
     public Collection(Date date, Double amount) {
         this.date = date;
@@ -24,6 +26,7 @@ public class Collection {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -31,6 +34,7 @@ public class Collection {
     public Date getDate() {
         return date;
     }
+
     public void setDate(Date date) {
         this.date = date;
     }
@@ -38,8 +42,8 @@ public class Collection {
     public Double getAmount() {
         return amount;
     }
+
     public void setAmount(Double amount) {
         this.amount = amount;
     }
 }
-

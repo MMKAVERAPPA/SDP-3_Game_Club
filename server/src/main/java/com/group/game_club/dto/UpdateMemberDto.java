@@ -17,6 +17,7 @@ public class UpdateMemberDto {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -24,6 +25,7 @@ public class UpdateMemberDto {
     public Double getBalance() {
         return balance;
     }
+
     public void setBalance(Double balance) {
         this.balance = balance;
     }
@@ -31,6 +33,7 @@ public class UpdateMemberDto {
     public String getPhone() {
         return phone;
     }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }

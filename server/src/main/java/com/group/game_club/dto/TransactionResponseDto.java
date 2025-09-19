@@ -5,6 +5,7 @@ import java.util.Date;
 import com.group.game_club.entity.Transaction;
 
 public class TransactionResponseDto {
+
     private String id;
     private String gameName;
     private Double amount;
@@ -17,8 +18,19 @@ public class TransactionResponseDto {
         this.dateTime = tx.getDateTime();
     }
 
-    public String getId() { return id; }
-    public String getGameName() { return gameName; }
-    public Double getAmount() { return amount; }
-    public Date getDateTime() { return dateTime; }
+    public String getId() {
+        return id;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public Date getDateTime() {
+        return dateTime;
+    }
 }

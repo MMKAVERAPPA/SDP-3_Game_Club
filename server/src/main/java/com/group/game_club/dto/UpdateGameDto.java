@@ -19,25 +19,59 @@ public class UpdateGameDto {
     private Integer minPlayers;
 
     // getters and setters ...
+    public String getName() {
+        return name;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Double getPrice() { return price; }
-    public void setPrice(Double price) { this.price = price; }
+    public Double getPrice() {
+        return price;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getDescription() {
+        return description;
+    }
 
-    public Integer getDuration() { return duration; }
-    public void setDuration(Integer duration) { this.duration = duration; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public Integer getMaxPlayers() { return maxPlayers; }
-    public void setMaxPlayers(Integer maxPlayers) { this.maxPlayers = maxPlayers; }
+    public String getStatus() {
+        return status;
+    }
 
-    public Integer getMinPlayers() { return minPlayers; }
-    public void setMinPlayers(Integer minPlayers) { this.minPlayers = minPlayers; }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public Integer getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(Integer maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+
+    public Integer getMinPlayers() {
+        return minPlayers;
+    }
+
+    public void setMinPlayers(Integer minPlayers) {
+        this.minPlayers = minPlayers;
+    }
 }

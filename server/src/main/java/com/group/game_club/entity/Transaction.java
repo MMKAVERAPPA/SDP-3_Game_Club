@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "transactions")
 public class Transaction {
+
     @Id
     private String id;
 
@@ -21,7 +22,8 @@ public class Transaction {
 
     private Date dateTime = new Date(); // default now()
 
-    public Transaction() {}
+    public Transaction() {
+    }
 
     public Transaction(Member member, Game game, Double amount) {
         this.member = member;
@@ -33,6 +35,7 @@ public class Transaction {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -40,6 +43,7 @@ public class Transaction {
     public Member getMember() {
         return member;
     }
+
     public void setMember(Member member) {
         this.member = member;
     }
@@ -47,6 +51,7 @@ public class Transaction {
     public Game getGame() {
         return game;
     }
+
     public void setGame(Game game) {
         this.game = game;
     }
@@ -54,6 +59,7 @@ public class Transaction {
     public Double getAmount() {
         return amount;
     }
+
     public void setAmount(Double amount) {
         this.amount = amount;
     }
@@ -61,6 +67,7 @@ public class Transaction {
     public Date getDateTime() {
         return dateTime;
     }
+
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }

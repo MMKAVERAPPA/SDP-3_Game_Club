@@ -3,6 +3,7 @@ package com.group.game_club.dto;
 import com.group.game_club.entity.Member;
 
 public class MemberDto {
+
     private String id;
     private String name;
     private String phone;
@@ -16,8 +17,19 @@ public class MemberDto {
     }
 
     // getters
-    public String getId() { return id; }
-    public String getName() { return name; }
-    public String getPhone() { return phone; }
-    public Double getBalance() { return balance; }
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
 }

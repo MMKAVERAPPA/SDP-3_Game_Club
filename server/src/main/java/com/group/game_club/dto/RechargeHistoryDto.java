@@ -3,6 +3,7 @@ package com.group.game_club.dto;
 import java.util.Date;
 
 public class RechargeHistoryDto {
+
     private String rechargeId;
     private double amount;
     private Date dateTime;

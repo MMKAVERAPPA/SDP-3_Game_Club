@@ -58,7 +58,6 @@ public class MemberController {
         Member member = memberService.getMemberById(id);
         return member.getBalance();
     }
-    
 
     @DeleteMapping("/delete/{id}")
     public String deleteMember(@PathVariable String id) {

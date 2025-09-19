@@ -30,66 +30,70 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @Autowired
-private MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
-@Autowired
-private GameRepository gameRepository;
+    @Autowired
+    private GameRepository gameRepository;
 
-@Autowired
-private TransactionRepository transactionRepository;
+    @Autowired
+    private TransactionRepository transactionRepository;
 
-   @PostMapping("/play")
-public TransactionDto addTransaction(@RequestBody TransactionDto dto) {
-    // Fetch actual Member from MongoDB
-    Member member = memberRepository.findById(dto.getMemberId())
-            .orElseThrow(() -> new RuntimeException("Member not found"));
+    @PostMapping("/play")
+    public TransactionDto addTransaction(@RequestBody TransactionDto dto) {
+        // Fetch actual Member from MongoDB
+        Member member = memberRepository.findById(dto.getMemberId())
+                .orElseThrow(() -> new RuntimeException("Member not found"));
 
-    // Fetch actual Game from MongoDB
-    Game game = gameRepository.findById(dto.getGameId())
-            .orElseThrow(() -> new RuntimeException("Game not found"));
+        // Fetch actual Game from MongoDB
+        Game game = gameRepository.findById(dto.getGameId())
+                .orElseThrow(() -> new RuntimeException("Game not found"));
 
-    // Check if the member has enough balance
-    if (member.getBalance() < dto.getAmount()) {
-        throw new RuntimeException("Insufficient balance for member: " + member.getName());
+        // Check if the member has enough balance
+        if (member.getBalance() < dto.getAmount()) {
+            throw new RuntimeException("Insufficient balance for member: " + member.getName());
+        }
+
+        // Deduct the balance
+        member.setBalance(member.getBalance() - dto.getAmount());
+        memberRepository.save(member);
+
+        // Create and save the transaction
+        Transaction transaction = new Transaction(member, game, dto.getAmount());
+        transaction = transactionRepository.save(transaction);
+
+        // Convert saved transaction to DTO
+        return new TransactionDto(transaction);
     }
 
-    // Deduct the balance
-    member.setBalance(member.getBalance() - dto.getAmount());
-    memberRepository.save(member);
+    @GetMapping("/all")
+    public List<TransactionDto> getAllTransactions() {
+        return transactionService.getAllTransactions()
+                .stream()
+                .map(TransactionDto::new) // convert each Transaction to TransactionDto
+                .toList();
+    }
 
-    // Create and save the transaction
-    Transaction transaction = new Transaction(member, game, dto.getAmount());
-    transaction = transactionRepository.save(transaction);
+    @GetMapping("/member/{memberId}")
+    public List<TransactionDto> getTransactionsByMemberId(@PathVariable String memberId) {
+        return transactionRepository.findByMember_Id(memberId)
+                .stream()
+                .map(TransactionDto::new)
+                .toList();
+    }
 
-    // Convert saved transaction to DTO
-    return new TransactionDto(transaction);
-}
-
-
-@GetMapping("/all")
-public List<TransactionDto> getAllTransactions() {
-    return transactionService.getAllTransactions()
-            .stream()
-            .map(TransactionDto::new) // convert each Transaction to TransactionDto
-            .toList();
-}
-@GetMapping("/member/{memberId}")
-public List<TransactionDto> getTransactionsByMemberId(@PathVariable String memberId) {
-    return transactionRepository.findByMember_Id(memberId)
-            .stream()
-            .map(TransactionDto::new)
-            .toList();
-}
-@GetMapping("/member/{memberId}/games")
+    @GetMapping("/member/{memberId}/games")
 public List<GameHistoryDto> getGameHistoryByMemberId(@PathVariable String memberId) {
     return transactionRepository.findByMember_Id(memberId)
             .stream()
-            .map(t -> new GameHistoryDto(
-                    t.getId(),
-                    t.getGame().getName(),   // ✅ only game name
-                    t.getAmount(),
-                    t.getDateTime()
-            ))
+            .map(t -> {
+                String gameName = t.getGame() != null ? t.getGame().getName() : "Game Deleted";
+                return new GameHistoryDto(
+                        t.getId(),
+                        gameName,
+                        t.getAmount(),
+                        t.getDateTime()
+                );
+            })
             .toList();
 }
 

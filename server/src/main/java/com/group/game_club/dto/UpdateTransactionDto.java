@@ -20,6 +20,7 @@ public class UpdateTransactionDto {
     public String getMemberId() {
         return memberId;
     }
+
     public void setMemberId(String memberId) {
         this.memberId = memberId;
     }
@@ -27,6 +28,7 @@ public class UpdateTransactionDto {
     public String getGameId() {
         return gameId;
     }
+
     public void setGameId(String gameId) {
         this.gameId = gameId;
     }
@@ -34,6 +36,7 @@ public class UpdateTransactionDto {
     public Double getAmount() {
         return amount;
     }
+
     public void setAmount(Double amount) {
         this.amount = amount;
     }
@@ -41,6 +44,7 @@ public class UpdateTransactionDto {
     public LocalDateTime getDateTime() {
         return dateTime;
     }
+
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }

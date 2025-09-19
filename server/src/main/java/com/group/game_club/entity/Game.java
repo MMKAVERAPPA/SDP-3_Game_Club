@@ -1,11 +1,11 @@
 package com.group.game_club.entity;
 
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "games")
 public class Game {
+
     @Id
     private String id;
 
@@ -18,7 +18,8 @@ public class Game {
     private Integer minPlayers;
     private String description;
 
-    public Game() {}
+    public Game() {
+    }
 
     public Game(String name, Double price, String description, String status, Integer duration, Integer maxPlayers, Integer minPlayers) {
         this.name = name;
@@ -65,6 +66,7 @@ public class Game {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -72,6 +74,7 @@ public class Game {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -79,6 +82,7 @@ public class Game {
     public Double getPrice() {
         return price;
     }
+
     public void setPrice(Double price) {
         this.price = price;
     }
@@ -86,8 +90,8 @@ public class Game {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
 }
-

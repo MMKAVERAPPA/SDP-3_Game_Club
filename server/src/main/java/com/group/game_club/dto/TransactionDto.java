@@ -5,6 +5,7 @@ import java.util.Date;
 import com.group.game_club.entity.Transaction;
 
 public class TransactionDto {
+
     private String id;
     private String memberId;
     private String gameId;
@@ -12,7 +13,8 @@ public class TransactionDto {
     private Date dateTime;
 
     // Default constructor needed for deserialization
-    public TransactionDto() {}
+    public TransactionDto() {
+    }
 
     // Constructor to convert from Transaction entity
     public TransactionDto(Transaction tx) {
@@ -27,6 +29,7 @@ public class TransactionDto {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -34,6 +37,7 @@ public class TransactionDto {
     public String getMemberId() {
         return memberId;
     }
+
     public void setMemberId(String memberId) {
         this.memberId = memberId;
     }
@@ -41,6 +45,7 @@ public class TransactionDto {
     public String getGameId() {
         return gameId;
     }
+
     public void setGameId(String gameId) {
         this.gameId = gameId;
     }
@@ -48,6 +53,7 @@ public class TransactionDto {
     public Double getAmount() {
         return amount;
     }
+
     public void setAmount(Double amount) {
         this.amount = amount;
     }
@@ -55,6 +61,7 @@ public class TransactionDto {
     public Date getDateTime() {
         return dateTime;
     }
+
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }

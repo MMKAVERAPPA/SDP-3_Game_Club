@@ -1,11 +1,19 @@
 package com.group.game_club.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.group.game_club.entity.Game;
 import com.group.game_club.service.GameService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -28,5 +36,15 @@ public class GameController {
     @GetMapping("/{id}")
     public Game getGameById(@PathVariable String id) {
         return gameService.getGameById(id);
+    }
+
+     @DeleteMapping("/delete/{id}")
+    public String deleteGame(@PathVariable String id) {
+        boolean deleted = gameService.deleteGame(id);
+        if (deleted) {
+            return "Game deleted successfully.";
+        } else {
+            return "Game not found with id: " + id;
+        }
     }
 }
