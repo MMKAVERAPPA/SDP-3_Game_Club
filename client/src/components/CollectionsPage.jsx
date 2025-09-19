@@ -31,7 +31,7 @@ export default function CollectionsPage() {
                 Overall Total: ₹{overallTotal}
             </div>
 
-            <table className="w-full border mb-4 text-center">
+            <table className=" bg-gray-700 border-2 w-full mb-4 text-center">
                 <thead>
                     <tr className="bg-gray-800 text-white">
                         <th className="p-2 border">Transaction ID</th>
