@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +57,17 @@ public class MemberController {
     public Double getMemberBalance(@PathVariable String id) {
         Member member = memberService.getMemberById(id);
         return member.getBalance();
+    }
+    
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteMember(@PathVariable String id) {
+        boolean deleted = memberService.deleteMember(id);
+        if (deleted) {
+            return "Member with ID " + id + " deleted successfully.";
+        } else {
+            return "Member with ID " + id + " not found.";
+        }
     }
 
     @GetMapping("/search/{id}")
