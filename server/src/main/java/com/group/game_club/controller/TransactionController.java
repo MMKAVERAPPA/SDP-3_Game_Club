@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group.game_club.dto.GameHistoryDto;
 import com.group.game_club.dto.TransactionDto;
 import com.group.game_club.entity.Game;
 import com.group.game_club.entity.Member;
@@ -69,6 +71,25 @@ public List<TransactionDto> getAllTransactions() {
     return transactionService.getAllTransactions()
             .stream()
             .map(TransactionDto::new) // convert each Transaction to TransactionDto
+            .toList();
+}
+@GetMapping("/member/{memberId}")
+public List<TransactionDto> getTransactionsByMemberId(@PathVariable String memberId) {
+    return transactionRepository.findByMember_Id(memberId)
+            .stream()
+            .map(TransactionDto::new)
+            .toList();
+}
+@GetMapping("/member/{memberId}/games")
+public List<GameHistoryDto> getGameHistoryByMemberId(@PathVariable String memberId) {
+    return transactionRepository.findByMember_Id(memberId)
+            .stream()
+            .map(t -> new GameHistoryDto(
+                    t.getGame().getId(),
+                    t.getGame().getName(),
+                    t.getAmount(),
+                    t.getDateTime()
+            ))
             .toList();
 }
 

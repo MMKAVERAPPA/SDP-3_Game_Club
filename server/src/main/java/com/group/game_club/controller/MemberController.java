@@ -51,34 +51,32 @@ public class MemberController {
     public AuthResponse authenticateMember(@RequestBody Member member) {
         return memberService.authenticateMember(member.getEmail(), member.getPassword());
     }
-    
+
     @GetMapping("/{id}/balance")
     public Double getMemberBalance(@PathVariable String id) {
         Member member = memberService.getMemberById(id);
         return member.getBalance();
     }
 
-   @GetMapping("/search/{id}")
-public MemberProfileResponse searchMemberById(@PathVariable String id) {
-    Member member = memberService.getMemberById(id);
+    @GetMapping("/search/{id}")
+    public MemberProfileResponse searchMemberById(@PathVariable String id) {
+        Member member = memberService.getMemberById(id);
 
-    // Played history (transactions)
-    List<TransactionResponseDto> playedHistory = transactionService
-            .getTransactionsByMemberId(id)
-            .stream()
-            .map(TransactionResponseDto::new)
-            .toList();
+        // Played history (transactions)
+        List<TransactionResponseDto> playedHistory = transactionService
+                .getTransactionsByMemberId(id)
+                .stream()
+                .map(TransactionResponseDto::new)
+                .toList();
 
-    // Recharge history
-    List<RechargeResponseDto> rechargeHistory = rechargeService
-            .getRechargesByMemberId(id)
-            .stream()
-            .map(RechargeResponseDto::new)
-            .toList();
+        // Recharge history
+        List<RechargeResponseDto> rechargeHistory = rechargeService
+                .getRechargesByMemberId(id)
+                .stream()
+                .map(RechargeResponseDto::new)
+                .toList();
 
-    return new MemberProfileResponse(member, playedHistory, rechargeHistory);
-}
+        return new MemberProfileResponse(member, playedHistory, rechargeHistory);
+    }
 
-
-    
 }
