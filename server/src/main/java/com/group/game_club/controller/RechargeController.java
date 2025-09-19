@@ -78,7 +78,7 @@ if (rechargeCountToday >= 5) {
     memberRepository.save(member);
     collectionsService.addAmountForToday(dto.getAmount());
     // 4. Return DTO
-    return new RechargeDto(member.getId(), recharge.getAmount(), recharge.getDateTime());
+    return new RechargeDto(member.getId(), recharge.getAmount(), recharge.getDateTime(),member.getBalance());
 }
 
 
@@ -86,7 +86,7 @@ if (rechargeCountToday >= 5) {
 public List<RechargeDto> getAllRecharges() {
     return rechargeRepository.findAll()
             .stream()
-            .map(r -> new RechargeDto(r.getMember().getId(), r.getAmount(), r.getDateTime()))
+            .map(r -> new RechargeDto(r.getMember().getId(), r.getAmount(), r.getDateTime(), r.getMember().getBalance()))
             .toList();
 }
 
