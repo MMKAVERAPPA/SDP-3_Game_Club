@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: sans-serif;
+  background-color: #f9fafb;
+}
+
+/* Tailwind input fix */
+input, select, textarea {
+  @apply text-black placeholder-gray-500 bg-white dark:text-white dark:bg-gray-800 dark:placeholder-gray-400;
+}
