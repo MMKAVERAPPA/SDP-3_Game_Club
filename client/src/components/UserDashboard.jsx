@@ -7,16 +7,12 @@ export default function UserDashboard() {
     const { balance } = useBalance();
 
     return (
-        <div className="p-8 min-h-screen">
+        <div className="p-8  overflow-hidden">
             {/* Personalized Welcome Header */}
             <div className="mb-8">
-                <h2 className="text-4xl font-bold text-blue-800 text-center ">
-                    Welcome back, <span className="text-indigo-600">{user?.username}!</span>
-                </h2>
-                <p>
-
-                </p>
-                <p className="text-white-600">Here's your gaming hub. What's next?</p>
+                <h2 className="text-4xl font-bold text-indigo-600 text-center ">
+                    Welcome back! <span className="text-blue-100">{user?.name}</span>
+                </h2>              
             </div>
 
             {/* Main Grid Layout */}

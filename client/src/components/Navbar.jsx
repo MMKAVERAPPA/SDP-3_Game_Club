@@ -21,7 +21,7 @@ export default function Navbar() {
                         <Link to="/games">Games</Link>
                         <Link to="/recharge-history">Recharge History</Link>
                         <Link to="/game-history">Game History</Link>
-                        <span className="font-semibold">Balance: ₹{balance}</span>
+                        <span className={`font-semibold ${balance > 500 ? "text-green-500" : "text-red-500"}`}>Balance: ₹{balance}</span>
                     </>
                 )}
                 {user.role === "ADMIN" && (
