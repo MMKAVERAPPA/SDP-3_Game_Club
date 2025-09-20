@@ -32,7 +32,8 @@ export default function RechargePage() {
                     alert("Recharge successful!");
                     setAmount("");
                 }catch(err){
-                    alert(err.response.data.message)
+                    console.log(err.response.data.message)
+                    alert("Maximum recharge limit (5) reached. Try again after 24 hours")
                 }
             } else {
                 alert("Recharge amount must be between ₹100 and ₹1,000.");
