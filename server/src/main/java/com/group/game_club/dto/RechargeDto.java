@@ -28,11 +28,11 @@ public class RechargeDto {
     }
 
     public Double getBalance() {
-        return amount;
+        return balance; // ✅ return balance
     }
 
     public void setBalance(Double balance) {
-        this.amount = balance;
+        this.balance = balance; // ✅ set balance
     }
 
     public Double getAmount() {
