@@ -7,6 +7,7 @@ export default function GameHistoryPage() {
     const { user } = useAuth()
 
     const [history, setHistory] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     const fetchGameHistory = async () => {
         try {
@@ -14,6 +15,7 @@ export default function GameHistoryPage() {
             if (user?.id) {
                 const response = await API.get(`/transactions/member/${user.id}/games`)
                 setHistory(response.data);
+                setLoading(false)
             }
         } catch (error) {
             console.error("Error fetching Game History:", error);
@@ -30,7 +32,11 @@ export default function GameHistoryPage() {
                 💳 Games History
             </h2>
             {/* ✨ The className here has been updated for a visible white outline */}
-            {history.length > 0 ? (
+            {loading ? (
+            <div className="text-center p-4 text-white bg-gray-800 rounded-lg">
+                Fetching Game History....
+            </div>
+        ) : history.length > 0 ? (
             <table className="w-full border-collapse bg-gray-700 border border-white rounded-lg overflow-hidden">
                 <thead>
                     <tr className="bg-indigo-700 text-white text-center">
@@ -62,7 +68,7 @@ export default function GameHistoryPage() {
             </table>
         ) : (
             <div className="text-center p-4 text-white bg-gray-800 rounded-lg">
-                Fetching Game History....
+                No Game History
             </div>
         )}
         </div>
