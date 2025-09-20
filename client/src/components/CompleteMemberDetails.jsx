@@ -61,7 +61,7 @@ export default function CompleteMemberDetails() {
                                     <td className="p-2 border">{details.member.name}</td>
                                     <td className="p-2 border">{details.member.email}</td>
                                     <td className="p-2 border">{details.member.phone}</td>
-                                    <td className="p-2 border">₹{details.member.balance}</td>
+                                    <td className="p-2 border text-green-500">₹{details.member.balance}</td>
                                     <td className="p-2 border">{details.member.role}</td>
                                 </tr>
                             </tbody>
@@ -84,7 +84,7 @@ export default function CompleteMemberDetails() {
                                     details.playedHistory.map((p) => (
                                         <tr key={p.id} className=" bg-gray-700 border-2 text-white-900 text-center">
                                             <td className="p-2 border">{p.gameName}</td>
-                                            <td className="p-2 border">₹{p.amount}</td>
+                                            <td className="p-2 border text-green-500 ">₹{p.amount}</td>
                                             <td className="p-2 border">
                                                 {new Date(p.dateTime).toLocaleString()}
                                             </td>
@@ -115,7 +115,7 @@ export default function CompleteMemberDetails() {
                                 {details.rechargeHistory.length > 0 ? (
                                     details.rechargeHistory.map((r) => (
                                         <tr key={r.id} className="bg-gray-700 border-2 text-white-900 text-center">
-                                            <td className="p-2 border">₹{r.amount}</td>
+                                            <td className="p-2 border text-green-500">₹{r.amount}</td>
                                             <td className="p-2 border">
                                                 {new Date(r.dateTime).toLocaleString()}
                                             </td>
