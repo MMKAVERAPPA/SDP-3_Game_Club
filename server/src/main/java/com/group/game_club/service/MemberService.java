@@ -72,7 +72,7 @@ public class MemberService {
         .orElseThrow(() -> new RuntimeException("Member not found with email: " + email));
 
 if (member.getPassword().equals(password)) {
-    return new AuthResponse(member.getId(), member.getRole());
+    return new AuthResponse(member.getId(), member.getRole(), member.getName());
 } else {
     throw new RuntimeException("Invalid password for email: " + email);
 }
