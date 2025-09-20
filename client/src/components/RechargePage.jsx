@@ -21,18 +21,19 @@ export default function RechargePage() {
                 return alert("This recharge would exceed the maximum balance of ₹10,000.");
             }
             if (rechargeAmt >= 100 && rechargeAmt <= 1000) {
-                const requirements = {
-                    memberId: user.id,
-                    amount: rechargeAmt
+                try{
+                    const requirements = {
+                        memberId: user.id,
+                        amount: rechargeAmt
+                    }
+                    await API.post('recharges/save', requirements)
+                    await recharge(rechargeAmt); // Call the context function
+                    await fetchRecharges(); // Refresh the history list
+                    alert("Recharge successful!");
+                    setAmount("");
+                }catch(err){
+                    alert(err.response.data.message)
                 }
-                const res = await API.post('recharges/save', requirements)
-                if(res.data){
-                    
-                }
-                await recharge(rechargeAmt); // Call the context function
-                await fetchRecharges(); // Refresh the history list
-                alert("Recharge successful!");
-                setAmount("");
             } else {
                 alert("Recharge amount must be between ₹100 and ₹1,000.");
             }
