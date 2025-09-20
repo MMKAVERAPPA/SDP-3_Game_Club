@@ -95,6 +95,7 @@ export default function ManageUsers() {
                 <table className="w-full">
                     <thead>
                         <tr className="bg-gray-800 text-white text-center">
+                            <th className="p-3  border-b border-r border-white">User ID</th>
                             <th className="p-3  border-b border-r border-white">Name</th>
                             <th className="p-3  border-b border-r border-white">Phone</th>
                             <th className="p-3  border-b border-r border-white">Email</th>
@@ -105,6 +106,7 @@ export default function ManageUsers() {
                     <tbody>
                         {users.map((u) => (
                             <tr key={u.id} className="border-b border-white text-center">
+                                <td className="p-3 border-r border-white">{u.id}</td>
                                 <td className="p-3 border-r border-white">{u.name}</td>
                                 <td className="p-3 border-r border-white">{u.phone}</td>
                                 <td className="p-3 border-r border-white">{u.email}</td>

@@ -12,7 +12,7 @@ export default function Navbar() {
 
     return (
         <div className="sticky top-0 z-50 flex justify-between items-center bg-gray-900 text-white p-4">
-            <Link to={user.role === 'admin' ? '/admin' : '/user'}>
+            <Link to={user.role === '/user'}>
                 <h1 className="font-bold text-lg">GameZone Club</h1>
             </Link>
             <div className="flex items-center gap-4">
