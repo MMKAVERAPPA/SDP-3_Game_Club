@@ -108,7 +108,7 @@ export default function ManageGames() {
 
             <table className="bg-gray-700 border-2 w-full">
                 <thead>
-                    <tr className="bg-gray-800 text-white">
+                    <tr className="bg-blue-800 text-white">
                         <th className="p-2 border">Name</th>
                         <th className="p-2 border">Price</th>
                         <th className="p-2 border">Description</th>
@@ -128,7 +128,7 @@ export default function ManageGames() {
                             <td className={`text-center font-semibold border p-2 ${g.status === 'ACTIVE' ? 'text-green-600' : 'text-red-600'}`}>
                                 {g.status}
                             </td>
-                            <td className="text-center border p-2">{g.duration}</td>
+                            <td className="text-center border p-2 text-orange-400">{g.duration}</td>
                             <td className="text-center border p-2">{g.minPlayers}</td>
                             <td className="text-center border p-2">{g.maxPlayers}</td>
                             <td className="border p-2 text-center">

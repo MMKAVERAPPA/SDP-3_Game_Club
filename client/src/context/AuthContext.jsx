@@ -14,23 +14,27 @@ export const AuthProvider = ({ children }) => {
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
-    }, []); 
+    }, []);
 
     const login = async (email, password) => {
-        if(email && password){
-            const credentials = {
-                "email" : email,
-                "password" : password
+        try {
+            if (email && password) {
+                const credentials = {
+                    "email": email,
+                    "password": password
+                }
+                const result = await API.post('/members/auth', credentials)
+                localStorage.setItem("user", JSON.stringify(result.data));
+                setUser(result.data)
+                if (result.data.role == 'ADMIN') {
+                    navigate('/admin')
+                } else {
+                    navigate('/user')
+                }
             }
-            const result = await API.post('/members/auth', credentials)
-            localStorage.setItem("user", JSON.stringify(result.data));
-            setUser(result.data)
-            if(result.data.role == 'ADMIN'){
-                navigate('/admin')
-            }else{
-                navigate('/user')
-            }
-        }
+        } catch { alert("Invalid credentials, Contact Admins"); }
+
+
     };
 
     const logout = () => {

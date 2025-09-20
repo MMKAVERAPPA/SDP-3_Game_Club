@@ -27,7 +27,7 @@ export default function ManageUsers() {
 
     const addUser = async () => {
         try {
-            await API.post("/members/save", { name, phone, email, password, fee: 500 });
+            await API.post("/members/save", { name, phone, email, password });
             clearForm();
             fetchUsers();
         } catch (err) {
@@ -38,7 +38,7 @@ export default function ManageUsers() {
     const updateUser = async () => {
         if (!editingUserId) return;
         try {
-            await API.put(`/members/update/${editingUserId}`, { name, phone, email });
+            await API.put(`/members/update/${editingUserId}`, { name, phone, email, password });
             clearForm();
             fetchUsers();
         } catch (err) {
@@ -51,6 +51,7 @@ export default function ManageUsers() {
         setName(user.name);
         setPhone(user.phone);
         setEmail(user.email);
+        setPassword(user.password)
     };
 
     const deleteUser = async (id) => {
@@ -76,9 +77,8 @@ export default function ManageUsers() {
                 <input type="text" placeholder="Name" className="border p-2 rounded" value={name} onChange={(e) => setName(e.target.value)} />
                 <input type="text" placeholder="Phone" className="border p-2 rounded" value={phone} onChange={(e) => setPhone(e.target.value)} />
                 <input type="email" placeholder="Email" className="border p-2 rounded" value={email} onChange={(e) => setEmail(e.target.value)} />
-                {!editingUserId && (
-                    <input type="password" placeholder="Password" className="border p-2 rounded" value={password} onChange={(e) => setPassword(e.target.value)} />
-                )}
+                <input type="password" placeholder="Password" className="border p-2 rounded" value={password} onChange={(e) => setPassword(e.target.value)} />
+
 
                 {editingUserId ? (
                     <>
@@ -99,6 +99,7 @@ export default function ManageUsers() {
                             <th className="p-3  border-b border-r border-white">Name</th>
                             <th className="p-3  border-b border-r border-white">Phone</th>
                             <th className="p-3  border-b border-r border-white">Email</th>
+                            <th className="p-3  border-b border-r border-white">Password</th>
                             <th className="p-3  border-b border-r border-white">Balance</th>
                             <th className="p-3 text-center border-b border-white">Actions</th>
                         </tr>
@@ -110,6 +111,7 @@ export default function ManageUsers() {
                                 <td className="p-3 border-r border-white">{u.name}</td>
                                 <td className="p-3 border-r border-white">{u.phone}</td>
                                 <td className="p-3 border-r border-white">{u.email}</td>
+                                <td className="p-3 border-r border-white">{u.password}</td>
                                 <td className="p-3 border-r border-white">₹{u.balance}</td>
                                 <td className="p-3 text-center">
                                     <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => deleteUser(u.id)}>Delete</button>
