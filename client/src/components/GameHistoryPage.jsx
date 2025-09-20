@@ -30,6 +30,7 @@ export default function GameHistoryPage() {
                 💳 Games History
             </h2>
             {/* ✨ The className here has been updated for a visible white outline */}
+            {history.length > 0 ? (
             <table className="w-full border-collapse bg-gray-700 border border-white rounded-lg overflow-hidden">
                 <thead>
                     <tr className="bg-indigo-700 text-white text-center">
@@ -40,35 +41,30 @@ export default function GameHistoryPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {history.length > 0 ? (
-                        history.map((entry, idx) => (
-                            <tr
-                                key={entry.id || idx}
-                                className="text-center text-white
-                                -800"
-                            >
-                                <td className="p-3 border font-mono">
-                                    {entry.id || `TXN-${idx + 1}`}
-                                </td>
-                                <td className="p-3 border">{entry.name || "N/A"}</td>
-                                <td className="p-3 border">{new Date(entry.dateTime).toLocaleString()}</td>
-                                <td className="p-3 border text-red-600 font-semibold">
-                                    - ₹{entry.amount}
-                                </td>
-                            </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td
-                                colSpan="4"
-                                className="text-center p-4 text-gray-500"
-                            >
-                                No History Found
+                    {history.map((entry, idx) => (
+                        <tr
+                            key={entry.id || idx}
+                            className="text-center text-white bg-gray-800"
+                        >
+                            <td className="p-3 border font-mono">
+                                {entry.id || `TXN-${idx + 1}`}
+                            </td>
+                            <td className="p-3 border">{entry.name || "N/A"}</td>
+                            <td className="p-3 border">
+                                {new Date(entry.dateTime).toLocaleString()}
+                            </td>
+                            <td className="p-3 border text-red-600 font-semibold">
+                                - ₹{entry.amount}
                             </td>
                         </tr>
-                    )}
+                    ))}
                 </tbody>
             </table>
+        ) : (
+            <div className="text-center p-4 text-white bg-gray-800 rounded-lg">
+                Fetching Game History....
+            </div>
+        )}
         </div>
     );
 }
