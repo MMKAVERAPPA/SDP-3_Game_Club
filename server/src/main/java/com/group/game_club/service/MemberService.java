@@ -46,17 +46,31 @@ public class MemberService {
 
     // Update existing member
     public Member updateMember(String id, Member updatedMember) {
-        Member existingMember = memberRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Member not found with id: " + id));
+    Member existingMember = memberRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Member not found with id: " + id));
 
+    if (updatedMember.getName() != null) {
         existingMember.setName(updatedMember.getName());
-        existingMember.setBalance(updatedMember.getBalance());
-        existingMember.setEmail(updatedMember.getEmail());
-        existingMember.setPassword(updatedMember.getPassword());
-        existingMember.setPhone(updatedMember.getPhone());
-
-        return memberRepository.save(existingMember);
     }
+    if (updatedMember.getBalance() != null) {
+        existingMember.setBalance(updatedMember.getBalance());
+    }
+    if (updatedMember.getEmail() != null) {
+        existingMember.setEmail(updatedMember.getEmail());
+    }
+    if (updatedMember.getPassword() != null) {
+        existingMember.setPassword(updatedMember.getPassword());
+    }
+    if (updatedMember.getPhone() != null) {
+        existingMember.setPhone(updatedMember.getPhone());
+    }
+    if (updatedMember.getRole() != null) {
+        existingMember.setRole(updatedMember.getRole());
+    }
+
+    return memberRepository.save(existingMember);
+}
+
 
     // Delete
     public boolean deleteMember(String id) {
