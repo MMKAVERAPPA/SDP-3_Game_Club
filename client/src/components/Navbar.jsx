@@ -6,13 +6,15 @@ export default function Navbar() {
     const { user, logout } = useAuth();
     const { balance, setBalance } = useBalance();
 
-    
+
 
     if (!user) return null;
 
     return (
         <div className="sticky top-0 z-50 flex justify-between items-center bg-gray-900 text-white p-4">
-            <h1 className="font-bold text-lg">GameZone Club</h1>
+            <Link to={user.role === 'admin' ? '/admin' : '/user'}>
+                <h1 className="font-bold text-lg">GameZone Club</h1>
+            </Link>
             <div className="flex items-center gap-4">
                 {user.role === "USER" && (
                     <>
