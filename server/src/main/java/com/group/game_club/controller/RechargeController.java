@@ -63,7 +63,7 @@ public class RechargeController {
                 .countByMemberIdAndDateTimeBetween(dto.getMemberId(), startOfDay, endOfDay);
 
         if (rechargeCountToday >= 5) {
-            throw new RuntimeException("Daily recharge limit exceeded (max 5 per day)");
+            throw new RuntimeException("Daily recharge limit exceeded (max 5 per day). Try again after 24 hours.");
         }
         // 4. Check wallet balance limit (max 10000)
         double newBalance = member.getBalance() + dto.getAmount();
