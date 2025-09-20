@@ -6,7 +6,7 @@ const BalanceContext = createContext();
 
 export const BalanceProvider = ({ children }) => {
 
-    const {user} = useAuth()
+    const { user } = useAuth()
     const [balance, setBalance] = useState(0)
 
     const recharge = (amount) => {
@@ -14,17 +14,17 @@ export const BalanceProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        const getBalance = async() => {
-        if (!user) return; 
-        try{
-            const result = await API.get(`/members/${user.id}/balance`)
-            recharge(result.data)
-        }catch(err){
-            console.log("Error while fetching the balance")
+        const getBalance = async () => {
+            if (!user) return;
+            try {
+                const result = await API.get(`/members/${user.id}/balance`)
+                recharge(result.data)
+            } catch (err) {
+                console.log("Error while fetching the balance")
+            }
         }
-    }
-    getBalance()
-    },[user])
+        getBalance()
+    }, [user])
 
     const deduct = (amount) => {
         if (balance - amount >= 1) {

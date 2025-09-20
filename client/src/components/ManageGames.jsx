@@ -27,7 +27,7 @@ export default function ManageGames() {
 
     const addGame = async () => {
         try {
-            await API.post("/games/save", { name, price, description: desc, status, duration, minPlayers, maxPlayers});
+            await API.post("/games/save", { name, price, description: desc, status, duration, minPlayers, maxPlayers });
             setName(""); setPrice(""); setDesc(""); setStatus("active"); setDuration(""); setMinPlayers(""); setMaxPlayers("");
             fetchGames();
         } catch (err) {
@@ -66,7 +66,7 @@ export default function ManageGames() {
                 <button className="bg-green-600 text-white px-4 py-2 rounded" onClick={addGame}>Add</button>
             </div>
 
-            <table className="w-full border">
+            <table className="  bg-gray-700 border-2 w-full">
                 <thead>
                     <tr className="bg-gray-800 text-white">
                         <th className="p-2 border">Name</th>
@@ -85,12 +85,16 @@ export default function ManageGames() {
                             <td className="border p-2">{g.name}</td>
                             <td className="border p-2">₹{g.price}</td>
                             <td className="border p-2">{g.description}</td>
-                            <td className="border p-2">{g.status}</td>
-                            <td className="border p-2">{g.duration}</td>
-                            <td className="border p-2">{g.minPlayers}</td>
-                            <td className="border p-2">{g.maxPlayers}</td>
+                            <td className={`text-center font-semibold border p-2 ${g.status === 'ACTIVE' ? 'text-green-600' : 'text-red-600'}`}>
+                                {g.status}
+                            </td>
+                            <td className="text-center border p-2">{g.duration}</td>
+                            <td className="text-center border p-2">{g.minPlayers}</td>
+                            <td className="text-center border p-2">{g.maxPlayers}</td>
                             <td className="border p-2">
                                 <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => deleteGame(g.id)}>Delete</button>
+
+                                <button className="bg-blue-500 text-white px-2 py-1 rounded " onClick={() => handleEditClick(g)}>Update</button>
                             </td>
                         </tr>
                     ))}

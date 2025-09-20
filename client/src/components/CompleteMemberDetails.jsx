@@ -46,7 +46,7 @@ export default function CompleteMemberDetails() {
                         <h3 className="font-bold text-lg mb-2">Member Details</h3>
                         <table className="w-full border rounded shadow-md overflow-hidden">
                             <thead>
-                                <tr className="bg-indigo-700 text-white text-left">
+                                <tr className="bg-indigo-700 text-white text-center">
                                     <th className="p-2 border">ID</th>
                                     <th className="p-2 border">Name</th>
                                     <th className="p-2 border">Email</th>
@@ -56,7 +56,7 @@ export default function CompleteMemberDetails() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="bg-gray-100 text-gray-900">
+                                <tr className="bg-gray-700 border-2 text-white-900 text-center">
                                     <td className="p-2 border">{details.member.id}</td>
                                     <td className="p-2 border">{details.member.name}</td>
                                     <td className="p-2 border">{details.member.email}</td>
@@ -73,7 +73,7 @@ export default function CompleteMemberDetails() {
                         <h3 className="font-bold text-lg mb-2">Played History</h3>
                         <table className="w-full border rounded shadow-md overflow-hidden">
                             <thead>
-                                <tr className="bg-indigo-700 text-white text-left">
+                                <tr className="bg-indigo-700 text-white text-center">
                                     <th className="p-2 border">Game</th>
                                     <th className="p-2 border">Amount</th>
                                     <th className="p-2 border">Date</th>
@@ -82,7 +82,7 @@ export default function CompleteMemberDetails() {
                             <tbody>
                                 {details.playedHistory.length > 0 ? (
                                     details.playedHistory.map((p) => (
-                                        <tr key={p.id} className="bg-gray-100 text-gray-900">
+                                        <tr key={p.id} className=" bg-gray-700 border-2 text-white-900 text-center">
                                             <td className="p-2 border">{p.gameName}</td>
                                             <td className="p-2 border">₹{p.amount}</td>
                                             <td className="p-2 border">
@@ -106,7 +106,7 @@ export default function CompleteMemberDetails() {
                         <h3 className="font-bold text-lg mb-2">Recharge History</h3>
                         <table className="w-full border rounded shadow-md overflow-hidden">
                             <thead>
-                                <tr className="bg-indigo-700 text-white text-left">
+                                <tr className="bg-indigo-700 text-white text-center">
                                     <th className="p-2 border">Amount</th>
                                     <th className="p-2 border">Date</th>
                                 </tr>
@@ -114,7 +114,7 @@ export default function CompleteMemberDetails() {
                             <tbody>
                                 {details.rechargeHistory.length > 0 ? (
                                     details.rechargeHistory.map((r) => (
-                                        <tr key={r.id} className="bg-gray-100 text-gray-900">
+                                        <tr key={r.id} className="bg-gray-700 border-2 text-white-900 text-center">
                                             <td className="p-2 border">₹{r.amount}</td>
                                             <td className="p-2 border">
                                                 {new Date(r.dateTime).toLocaleString()}

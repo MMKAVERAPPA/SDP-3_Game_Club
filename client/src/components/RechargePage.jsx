@@ -1,4 +1,3 @@
-//RechargePage.js
 import { useBalance } from "../context/BalanceContext";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
@@ -6,32 +5,31 @@ import API from "../api/api";
 
 export default function RechargePage() {
     const { user } = useAuth();
+    // ✨ The recharge function is now async
     const { balance, recharge } = useBalance();
     const [amount, setAmount] = useState("");
     const [recharges, setRecharges] = useState([]);
 
+    // ✨ The handleRecharge function is now much simpler
     const handleRecharge = async (val) => {
         try {
             const rechargeAmt = parseInt(val);
-            if (balance + rechargeAmt <= 10000) {
-                if (rechargeAmt >= 100 && rechargeAmt <= 1000) {
-                    const requirements = {
-                        memberId: user.id, // ✅ backend needs this
-                        amount: rechargeAmt,
-                    };
-                    const result = await API.post("/recharges/save", requirements); // 🔹 API: save recharge
-                    recharge(result.data.amount);
+            if (isNaN(rechargeAmt)) return alert("Please enter a valid amount.");
 
-                    // refresh transactions after recharge
-                    fetchRecharges();
-                } else {
-                    alert("Recharge must be between 100 and 1000");
-                }
+            if (balance + rechargeAmt > 10000) {
+                return alert("This recharge would exceed the maximum balance of ₹10,000.");
+            }
+            if (rechargeAmt >= 100 && rechargeAmt <= 1000) {
+                await recharge(rechargeAmt); // Call the context function
+                await fetchRecharges(); // Refresh the history list
+                alert("Recharge successful!");
+                setAmount("");
             } else {
-                alert("You have already reached the maximum possible balance of 10000");
+                alert("Recharge amount must be between ₹100 and ₹1,000.");
             }
         } catch (err) {
-            console.log("Error while recharging", err);
+            // Error is already handled in the context, but this catch is here just in case.
+            console.log("Recharge process failed", err);
         }
     };
 
@@ -39,7 +37,6 @@ export default function RechargePage() {
         try {
             const res = await API.get(`/recharges/member/${user.id}`);
             setRecharges(res.data || []);
-            console.log(res.data)
         } catch (err) {
             console.error("Error fetching recharges", err);
         }
@@ -54,7 +51,7 @@ export default function RechargePage() {
             <h2 className="font-bold text-xl mb-2">Recharge Your Balance</h2>
             <p className="mb-4">Current Balance: ₹{balance}</p>
             <div className="flex gap-4 mb-4">
-                {[100, 500, 1000, 2000].map((amt) => (
+                {[100, 500, 1000].map((amt) => ( // Removed 2000 as it's outside the valid range
                     <button
                         key={amt}
                         className="bg-indigo-600 text-white px-4 py-2 rounded"
@@ -64,6 +61,7 @@ export default function RechargePage() {
                     </button>
                 ))}
             </div>
+
             <div className="flex gap-2 mb-6">
                 <input
                     type="number"
@@ -80,40 +78,37 @@ export default function RechargePage() {
                 </button>
             </div>
 
-            {/* ✅ Recharge History Table */}
             <h3 className="font-bold text-lg mb-2">Recharge History</h3>
-            <table className="w-full border">
-                <thead>
-                    <tr className="bg-gray-800 text-white">
-                        <th className="p-2 border">Recharge ID</th>
-                        <th className="p-2 border">Date and Time</th>
-                        <th className="p-2 border">Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {recharges.length > 0 ? (
-                        recharges.map((rx) => (
-                            <tr key={rx.rechargeId}>
-                                <td className="border p-2">{rx.rechargeId}</td>
-                                <td className="border p-2">
-                                    {new Date(rx.dateTime).toLocaleString()}
-                                </td>
-                                <td
-                                    className="border p-2 font-semibold text-green-600"
-                                >
-                                    {" + "}₹{rx.amount}
+            <div className="bg-gray-700 border border-white rounded-lg overflow-hidden">
+                <table className="w-full border-collapse">
+                    <thead>
+                        <tr className="bg-gray-800 text-white">
+                            <th className="p-2 border border-white text-center">Recharge ID</th>
+                            <th className="p-2 border border-white text-center">Date and Time</th>
+                            <th className="p-2 border border-white text-center">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {recharges.length > 0 ? (
+                            recharges.map((rx) => (
+                                <tr key={rx.rechargeId}>
+                                    <td className="border border-white p-2 text-center">{rx.rechargeId}</td>
+                                    <td className="border border-white p-2 text-center">{new Date(rx.dateTime).toLocaleString()}</td>
+                                    <td className="border border-white p-2 text-center font-semibold text-green-600">
+                                        +₹{rx.amount}
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="3" className="text-center p-2 text-white">
+                                    No Recharges yet
                                 </td>
                             </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan="3" className="text-center p-2 text-gray-500">
-                                No Recharges yet
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
