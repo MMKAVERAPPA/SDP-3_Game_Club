@@ -10,6 +10,7 @@ export default function RechargePage() {
     const [amount, setAmount] = useState("");
     const [recharges, setRecharges] = useState([]);
 
+    const [loading, setLoading] = useState(true)
     // ✨ The handleRecharge function is now much simpler
     const handleRecharge = async (val) => {
         try {
@@ -20,10 +21,19 @@ export default function RechargePage() {
                 return alert("This recharge would exceed the maximum balance of ₹10,000.");
             }
             if (rechargeAmt >= 100 && rechargeAmt <= 1000) {
-                await recharge(rechargeAmt); // Call the context function
-                await fetchRecharges(); // Refresh the history list
-                alert("Recharge successful!");
-                setAmount("");
+                try{
+                    const requirements = {
+                        memberId: user.id,
+                        amount: rechargeAmt
+                    }
+                    await API.post('recharges/save', requirements)
+                    await recharge(rechargeAmt); // Call the context function
+                    await fetchRecharges(); // Refresh the history list
+                    alert("Recharge successful!");
+                    setAmount("");
+                }catch(err){
+                    alert(err.response.data.message)
+                }
             } else {
                 alert("Recharge amount must be between ₹100 and ₹1,000.");
             }
@@ -37,6 +47,7 @@ export default function RechargePage() {
         try {
             const res = await API.get(`/recharges/member/${user.id}`);
             setRecharges(res.data || []);
+            setLoading(false)
         } catch (err) {
             console.error("Error fetching recharges", err);
         }
@@ -89,11 +100,19 @@ export default function RechargePage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {recharges.length > 0 ? (
+                        {loading ? (
+                            <tr>
+                                <td colSpan="3" className="text-center p-2 text-white">
+                                    Fetching Recharges...
+                                </td>
+                            </tr>
+                        ) : recharges.length > 0 ? (
                             recharges.map((rx) => (
                                 <tr key={rx.rechargeId}>
                                     <td className="border border-white p-2 text-center">{rx.rechargeId}</td>
-                                    <td className="border border-white p-2 text-center">{new Date(rx.dateTime).toLocaleString()}</td>
+                                    <td className="border border-white p-2 text-center">
+                                        {new Date(rx.dateTime).toLocaleString()}
+                                    </td>
                                     <td className="border border-white p-2 text-center font-semibold text-green-600">
                                         +₹{rx.amount}
                                     </td>

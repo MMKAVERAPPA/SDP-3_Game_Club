@@ -39,6 +39,7 @@ public class RechargeController {
     @PostMapping("/save")
     public RechargeDto addRecharge(@RequestBody RechargeDto dto) {
         // 1. Fetch member
+        System.out.println("Received DTO: " + dto.getMemberId());
         Member member = memberRepository.findById(dto.getMemberId())
                 .orElseThrow(() -> new RuntimeException("Member not found"));
 
