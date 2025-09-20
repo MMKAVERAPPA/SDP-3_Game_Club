@@ -4,6 +4,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @Document(collection = "members")
 public class Member {
 
@@ -12,7 +16,7 @@ public class Member {
 
     private String name;
 
-    private Double balance = 0.0;
+    private Double balance;
 
     private String role = "USER";
 
@@ -29,11 +33,12 @@ public class Member {
     }
 
     // Full constructor
+    // Full constructor
     public Member(String id, String name, Double balance, String role, String email, String password, String phone) {
         this.id = id;
         this.name = name;
         this.role = role;
-        this.balance = balance != null ? balance : 0.0;
+        this.balance = balance; // ✅ keep what comes in, even null
         this.email = email;
         this.password = password;
         this.phone = phone;
