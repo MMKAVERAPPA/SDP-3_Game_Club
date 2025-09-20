@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:8080", // 🔗 update later if needed
+    baseURL: "https://sdp-3-game-club.onrender.com",
 });
 
 // Example interceptor for JWT (future use)
