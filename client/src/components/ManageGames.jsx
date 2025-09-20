@@ -6,11 +6,13 @@ export default function ManageGames() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [desc, setDesc] = useState("");
-    const [status, setStatus] = useState("active");
+    const [status, setStatus] = useState("ACTIVE");
     const [duration, setDuration] = useState("");
     const [minPlayers, setMinPlayers] = useState("");
     const [maxPlayers, setMaxPlayers] = useState("");
 
+    // ✨ State to track which game is being edited
+    const [editingGameId, setEditingGameId] = useState(null);
 
     const fetchGames = async () => {
         try {
@@ -19,28 +21,57 @@ export default function ManageGames() {
         } catch (err) {
             console.error(err);
         }
-    }
+    };
 
-    useEffect(() => {
-        fetchGames()
-    }, [])
+    // ✨ Helper function to clear the form and exit edit mode
+    const clearForm = () => {
+        setName(""); setPrice(""); setDesc(""); setStatus("ACTIVE");
+        setDuration(""); setMinPlayers(""); setMaxPlayers("");
+        setEditingGameId(null);
+    };
 
     const addGame = async () => {
         try {
             await API.post("/games/save", { name, price, description: desc, status, duration, minPlayers, maxPlayers });
-            setName(""); setPrice(""); setDesc(""); setStatus("active"); setDuration(""); setMinPlayers(""); setMaxPlayers("");
+            clearForm();
             fetchGames();
         } catch (err) {
             console.error(err);
         }
     };
 
-    const deleteGame = async (id) => {
+    // ✨ Function to handle the update API call
+    const updateGame = async () => {
+        if (!editingGameId) return;
         try {
-            await API.delete(`/games/delete/${id}`);
+            await API.put(`/games/update/${editingGameId}`, { name, price, description: desc, status, duration, minPlayers, maxPlayers });
+            clearForm();
             fetchGames();
         } catch (err) {
-            console.error(err);
+            console.error("Error updating game:", err);
+        }
+    };
+
+    // ✨ Function to populate the form for editing
+    const handleEditClick = (game) => {
+        setEditingGameId(game.id);
+        setName(game.name);
+        setPrice(game.price);
+        setDesc(game.description);
+        setStatus(game.status);
+        setDuration(game.duration);
+        setMinPlayers(game.minPlayers);
+        setMaxPlayers(game.maxPlayers);
+    };
+
+    const deleteGame = async (id) => {
+        if (window.confirm("Are you sure you want to delete this game?")) {
+            try {
+                await API.delete(`/games/delete/${id}`);
+                fetchGames();
+            } catch (err) {
+                console.error(err);
+            }
         }
     };
 
@@ -50,7 +81,7 @@ export default function ManageGames() {
 
     return (
         <div className="p-6">
-            <h2 className="font-bold text-xl mb-4">Manage Games</h2>
+            <h2 className="font-bold text-xl mb-4">{editingGameId ? `Editing Game: ${name}` : "Manage Games"}</h2>
 
             <div className="mb-4 flex flex-wrap gap-2">
                 <input type="text" placeholder="Game Name" className="border p-2 rounded" value={name} onChange={(e) => setName(e.target.value)} />
@@ -63,10 +94,19 @@ export default function ManageGames() {
                 <input type="text" placeholder="Duration (min)" className="border p-2 rounded" value={duration} onChange={(e) => setDuration(e.target.value)} />
                 <input type="number" placeholder="Min Players" className="border p-2 rounded" value={minPlayers} onChange={(e) => setMinPlayers(e.target.value)} />
                 <input type="number" placeholder="Max Players" className="border p-2 rounded" value={maxPlayers} onChange={(e) => setMaxPlayers(e.target.value)} />
-                <button className="bg-green-600 text-white px-4 py-2 rounded" onClick={addGame}>Add</button>
+
+                {/* ✨ Buttons change based on whether you are adding or editing */}
+                {editingGameId ? (
+                    <>
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded" onClick={updateGame}>Update</button>
+                        <button className="bg-gray-500 text-white px-4 py-2 rounded" onClick={clearForm}>Cancel</button>
+                    </>
+                ) : (
+                    <button className="bg-green-600 text-white px-4 py-2 rounded" onClick={addGame}>Add</button>
+                )}
             </div>
 
-            <table className="  bg-gray-700 border-2 w-full">
+            <table className="bg-gray-700 border-2 w-full">
                 <thead>
                     <tr className="bg-gray-800 text-white">
                         <th className="p-2 border">Name</th>
@@ -83,7 +123,7 @@ export default function ManageGames() {
                     {games.map((g) => (
                         <tr key={g.id}>
                             <td className="border p-2">{g.name}</td>
-                            <td className="border p-2">₹{g.price}</td>
+                            <td className="border p-2 text-green-600 text-center">₹{g.price}</td>
                             <td className="border p-2">{g.description}</td>
                             <td className={`text-center font-semibold border p-2 ${g.status === 'ACTIVE' ? 'text-green-600' : 'text-red-600'}`}>
                                 {g.status}
@@ -91,10 +131,9 @@ export default function ManageGames() {
                             <td className="text-center border p-2">{g.duration}</td>
                             <td className="text-center border p-2">{g.minPlayers}</td>
                             <td className="text-center border p-2">{g.maxPlayers}</td>
-                            <td className="border p-2">
+                            <td className="border p-2 text-center">
                                 <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => deleteGame(g.id)}>Delete</button>
-
-                                <button className="bg-blue-500 text-white px-2 py-1 rounded " onClick={() => handleEditClick(g)}>Update</button>
+                                <button className="bg-blue-500 text-white px-2 py-1 rounded ml-2" onClick={() => handleEditClick(g)}>Update</button>
                             </td>
                         </tr>
                     ))}
